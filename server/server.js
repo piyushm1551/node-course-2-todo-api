@@ -49,6 +49,23 @@ return res.status(404).send('Invalid id');
 
 });
 
+app.delete('/todos/:id',(req,res) => {
+  //res.send(req.params);
+  var id = req.params.id;
+  if(!ObjectId.isValid(id)){
+return res.status(404).send('Invalid id');
+  }
+  Todo.findByIdAndRemove(id).then((todo) => {
+    if(!todo)
+    {
+      return res.status(404).send('could not find');
+    }
+  return res.status(200).send({todo});
+}).catch((e) => res.status(400).send('error'));
+
+
+});
+
 
 app.listen(port,() => {
   console.log(`started on port ${port}`);
