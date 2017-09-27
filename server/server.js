@@ -41,7 +41,7 @@ return res.status(404).send('Invalid id');
   Todo.findById(id).then((todo) => {
     if(!todo)
     {
-      return res.status(404).send('not found');
+      return res.status(404).send('could not find');
     }
   res.send({todo});
 }).catch((e) => res.status(400).send('error'));
