@@ -56,6 +56,24 @@ UserSchema.methods.generateAuthToken = function () {
   })
 };
 
+UserSchema.statics.findByToken = function (token) {
+  var User = this;
+  var decoded ;
+
+  try {
+    decoded=jwt.verify(token,'abc123');
+  } catch (e) {
+    return  Promise.reject();
+    }
+
+  return User.findOne({
+    '_id' : decoded._id,
+    'tokens.token': token,
+    'tokens.access': 'auth'
+  });
+};
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OWNlMTU4ZDVmNDA3OGMwMjllZmMxZTEiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNTA2Njc4MTU3fQ.U2zczvghYi3rjzdCYc8Fv01vhCJZsJi51oXJTVZP52A
+//
 var Users = mongoose.model('Users',UserSchema);
 
 module.exports = {Users};

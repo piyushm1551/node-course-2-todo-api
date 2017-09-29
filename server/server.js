@@ -10,6 +10,7 @@ const {ObjectId} = require('mongodb');
 var {mongoose} = require('./db/mongoose');
 var  {Todo} = require('./models/todo');
 var  {Users} = require('./models/user');
+ var {authenticate} = require('./middleware/authenticate')
 var app = express();
 const port = process.env.PORT || 3000;
 
@@ -65,7 +66,6 @@ return res.status(404).send('Invalid id');
   return res.status(200).send({todo});
 }).catch((e) => res.status(400).send('error'));
 
-
 });
 
 app.patch('/todos/:id',(req,res) => {
@@ -107,6 +107,12 @@ app.post('/users',(req,res) => {
 }).catch((e) => {
     res.status(400).send(e);
   })
+});
+
+
+
+app.get('/users/me',authenticate,(req,res) => {
+  res.send(req.user);
 });
 
 app.listen(port,() => {
