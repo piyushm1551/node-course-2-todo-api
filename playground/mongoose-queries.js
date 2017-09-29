@@ -26,7 +26,7 @@ const {Users} = require('./../server/models/user');
 var email = "piyush.maharana@hashtaag.com";
 //     "__v" : 0
 
-// Todo.findById(id).then((todo) => {
+// Todo.fA@%^indById(id).then((todo) => {
 //   if(!todo)
 //   {
 //     return console.log('id not found');;
